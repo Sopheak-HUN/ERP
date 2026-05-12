@@ -14,7 +14,9 @@
       "Bash(pnpm exec *)",
       "Bash(pnpm typecheck *)",
       "Bash(echo \"EXIT=$?\")",
-      "Bash(rm typecheck.log)"
+      "Bash(rm typecheck.log)",
+      "Bash(./vendor/bin/pint app/Core app/Models database/migrations/2026_05_12_100001_extend_users_table_for_multi_tenancy.php database/seeders/DatabaseSeeder.php tests/Feature/Models/UserTest.php)",
+      "Bash(./vendor/bin/pint app/Models/User.php)"
     ]
   }
 }

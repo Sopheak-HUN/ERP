@@ -11,15 +11,7 @@ export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig()
   const api = createApi({
     baseURL: config.public.apiBase,
-    getToken: () => {
-      if (typeof window === 'undefined') return null
-      try {
-        return window.localStorage?.getItem('erp:token')
-      }
-      catch {
-        return null
-      }
-    },
+    getToken: () => useCookie<string | null>('erp:token').value,
     onError: (error) => {
       if (import.meta.dev) {
         // eslint-disable-next-line no-console
