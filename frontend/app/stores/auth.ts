@@ -36,8 +36,16 @@ export const useAuthStore = defineStore('auth', () => {
       const api = useApi()
       user.value = await api<AuthUser>('/auth/me')
     }
-    catch {
-      clearAuth()
+    catch (err: any) {
+      if (import.meta.dev) {
+        // eslint-disable-next-line no-console
+        console.error('[auth] fetchUser failed:', err.status, err.message)
+      }
+      
+      // Only clear auth if the server explicitly says we are unauthorized
+      if (err.status === 401 || err.status === 403) {
+        clearAuth()
+      }
     }
   }
 

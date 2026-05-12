@@ -17,6 +17,7 @@ export default defineNuxtConfig({
     '@nuxtjs/i18n',
     '@pinia/nuxt',
     '@vee-validate/nuxt',
+    '@nuxtjs/color-mode',
   ],
 
   css: ['~/assets/css/main.css'],
@@ -31,8 +32,9 @@ export default defineNuxtConfig({
   },
 
   runtimeConfig: {
+    apiBase: process.env.NUXT_API_BASE ?? 'http://nginx/api/v1',
     public: {
-      apiBase: process.env.NUXT_PUBLIC_API_BASE ?? 'http://localhost:8080/api/v1',
+      apiBase: process.env.NUXT_PUBLIC_API_BASE ?? 'http://localhost:8082/api/v1',
       appName: process.env.NUXT_PUBLIC_APP_NAME ?? 'ERP',
     },
   },
@@ -69,5 +71,10 @@ export default defineNuxtConfig({
       FieldArray: 'VeeFieldArray',
       ErrorMessage: 'VeeErrorMessage',
     },
+  },
+  colorMode: {
+    preference: 'system',
+    fallback: 'light',
+    classSuffix: '',
   },
 })

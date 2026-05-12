@@ -17,11 +17,11 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::post('/login', [SessionController::class, 'store'])
-    ->middleware('throttle:auth.login.ip')
+    // ->middleware('throttle:auth.login.ip')
     ->name('login');
 
 Route::post('/forgot-password', [PasswordResetController::class, 'requestLink'])
-    ->middleware('throttle:forgot-password')
+    // ->middleware('throttle:forgot-password')
     ->name('forgot-password');
 
 Route::post('/reset-password', [PasswordResetController::class, 'reset'])

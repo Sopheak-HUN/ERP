@@ -35,9 +35,13 @@ const sidebarOpen = ref(true)
         />
         <div class="flex items-center gap-4">
           <ClientOnly>
+            <ThemeSwitcher />
             <UserMenu />
             <template #fallback>
-              <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 animate-pulse" />
+              <div class="flex items-center gap-4">
+                <div class="w-24 h-8 rounded-lg bg-gray-200 dark:bg-gray-800 animate-pulse" />
+                <div class="w-8 h-8 rounded-full bg-gray-200 dark:bg-gray-800 animate-pulse" />
+              </div>
             </template>
           </ClientOnly>
         </div>

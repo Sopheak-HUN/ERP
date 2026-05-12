@@ -160,7 +160,7 @@ services:
     container_name: ${COMPOSE_PROJECT_NAME:-erp}-node
     working_dir: /app
     ports:
-      - "${NUXT_PORT:-3000}:3000"
+      - "${NUXT_PORT:-3000}:${NUXT_PORT:-3000}"
     volumes:
       - ./frontend:/app
       - node_modules:/app/node_modules
@@ -169,7 +169,7 @@ services:
       - .env
     environment:
       HOST: 0.0.0.0
-      PORT: 3000
+      PORT: ${NUXT_PORT:-3000}
       NUXT_PUBLIC_API_BASE: ${NUXT_PUBLIC_API_BASE:-http://localhost:8080/api/v1}
     command: ["sh", "-c", "pnpm install --frozen-lockfile=false && pnpm dev --host 0.0.0.0"]
     networks:

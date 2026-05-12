@@ -10,7 +10,7 @@ import { createApi } from '~/composables/useApi'
 export default defineNuxtPlugin((nuxtApp) => {
   const config = useRuntimeConfig()
   const api = createApi({
-    baseURL: config.public.apiBase,
+    baseURL: import.meta.server ? (config.apiBase || config.public.apiBase) : config.public.apiBase,
     getToken: () => useCookie<string | null>('erp:token').value,
     onError: (error) => {
       if (import.meta.dev) {

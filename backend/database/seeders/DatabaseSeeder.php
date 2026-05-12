@@ -19,7 +19,7 @@ class DatabaseSeeder extends Seeder
     {
         User::factory()->create([
             'name' => 'UAT Tester',
-            'email' => 'uat@gmail.com',
+            'email' => 'sopheakhun030@gmail.com',
             'password' => bcrypt('uat123456789'),
         ]);
     }
