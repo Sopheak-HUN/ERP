@@ -1,0 +1,23 @@
+includes:
+    - vendor/larastan/larastan/extension.neon
+
+parameters:
+    level: 8
+
+    paths:
+        - app
+        - routes
+        - database/factories
+        - database/seeders
+
+    excludePaths:
+        - bootstrap/cache/*
+        - storage/*
+        - vendor/*
+        # Vendor-published service provider; we leave it as scaffolded so Horizon
+        # upgrades stay drop-in. Re-enable analysis once we customize it.
+        - app/Providers/HorizonServiceProvider.php
+
+    # Tests are analyzed by Pest's own type-coverage tooling. PHPStan L8 cannot
+    # see through Pest's `it()` closure binding (e.g. `$this->getJson()`), so we
+    # exclude `tests/` here and rely on `pest --type-coverage` / running the suite.

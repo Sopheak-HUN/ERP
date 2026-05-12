@@ -1,0 +1,12 @@
+@import "tailwindcss" theme(static);
+@import "@nuxt/ui";
+
+:root {
+  --erp-content-max: 1440px;
+}
+
+html,
+body,
+#__nuxt {
+  height: 100%;
+}

@@ -1,0 +1,16 @@
+{
+  "app": {
+    "title": "ERP System",
+    "subtitle": "Modular monolith — Laravel 13 + Nuxt 4"
+  },
+  "nav": {
+    "menu_placeholder": "Menu will populate once auth + RBAC ships."
+  },
+  "error": {
+    "unknown": "Something went wrong. Please try again.",
+    "network": "Network error. Check your connection.",
+    "unauthenticated": "Please sign in to continue.",
+    "forbidden": "You don't have permission to do that.",
+    "not_found": "We couldn't find what you were looking for."
+  }
+}
