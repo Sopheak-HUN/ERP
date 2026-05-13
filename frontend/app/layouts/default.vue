@@ -1,69 +1,66 @@
 <script setup lang="ts">
+import AppTopbar from "~/components/layout/AppTopbar.vue";
 import AppMenu from "~/components/layout/AppMenu.vue";
 
-const config = useRuntimeConfig();
-const appName = computed(() => config.public.appName);
-
-const sidebarOpen = ref(true);
+const { layoutState } = useLayout();
 </script>
 
 <template>
-  <div
-    class="flex h-screen w-screen overflow-hidden bg-surface-50 dark:bg-surface-950 text-surface-900 font-sans"
-  >
-    <!-- Refined Enterprise Sidebar -->
+  <div class="layout-wrapper min-h-screen bg-surface-50 dark:bg-surface-950 font-sans transition-colors duration-300">
+    <AppTopbar />
+
+    <!-- Sakai Sidebar -->
     <aside
-      v-show="sidebarOpen"
-      class="flex h-full w-64 flex-col border-r border-surface-200 bg-surface-0 dark:border-surface-800 dark:bg-surface-900 z-30 transition-all duration-300"
+      class="fixed top-16 left-0 h-[calc(100vh-4rem)] w-72 bg-surface-0 dark:bg-surface-900 border-r border-surface-200 dark:border-surface-800 z-40 overflow-y-auto transition-all duration-300"
+      :class="[layoutState.staticMenuInactive ? 'translate-x-[-100%] md:translate-x-0 md:w-0 overflow-hidden' : 'translate-x-0 w-72']"
     >
-      <div
-        class="flex h-16 items-center border-b border-surface-100 px-6 font-black text-xl tracking-tighter text-primary dark:border-surface-800"
-      >
-        {{ appName }}
-      </div>
-      <div class="flex-1 overflow-y-auto pt-4 custom-scrollbar">
-        <AppMenu />
-      </div>
+      <AppMenu />
     </aside>
 
-    <div class="flex h-full flex-1 flex-col overflow-hidden relative">
-      <!-- Elite Top Header -->
-      <header
-        class="flex h-16 shrink-0 items-center justify-between border-b border-surface-200 bg-surface-0 px-8 dark:border-surface-800 dark:bg-surface-900 z-20 shadow-sm shadow-surface-200/50 dark:shadow-none"
-      >
-        <div class="flex items-center gap-6">
-          <Button
-            icon="pi pi-bars"
-            severity="secondary"
-            text
-            rounded
-            class="hover:bg-primary-50 text-surface-400 hover:text-primary transition-all"
-            @click="sidebarOpen = !sidebarOpen"
-          />
-          <div class="flex items-center gap-2 text-sm text-surface-400">
-            <i class="pi pi-home text-xs"></i>
-            <i class="pi pi-chevron-right text-[10px]"></i>
-            <span class="text-surface-900 font-bold tracking-tight">Identity & Access</span>
-          </div>
-        </div>
-
-        <div class="flex items-center gap-4">
-          <div class="flex items-center gap-3 bg-surface-50 dark:bg-surface-800 p-1.5 rounded-full border border-surface-200 dark:border-surface-700">
-            <ClientOnly>
-              <ThemeSwitcher />
-              <div class="w-px h-4 bg-surface-200 dark:bg-surface-700 mx-1" />
-              <UserMenu />
-            </ClientOnly>
-          </div>
-        </div>
-      </header>
-
-      <!-- The 'Sheet' Workspace -->
-      <main class="flex-1 overflow-y-auto p-5">
-        <div class="min-h-full bg-surface-0 dark:bg-surface-900 border border-surface-200 dark:border-surface-800 rounded-xl shadow-xl shadow-surface-200/30 dark:shadow-none overflow-hidden transition-all duration-500">
-          <slot />
-        </div>
+    <!-- Main Content Area -->
+    <div 
+      class="transition-all duration-300 pt-16 min-h-screen flex flex-col"
+      :class="[layoutState.staticMenuInactive ? 'ml-0' : 'md:ml-72']"
+    >
+      <main class="flex-1 p-6 lg:p-8">
+        <slot />
       </main>
+      
+      <footer class="py-4 px-8 border-t border-surface-200 dark:border-surface-800 bg-surface-0 dark:bg-surface-900 text-center text-xs text-surface-500">
+        &copy; {{ new Date().getFullYear() }} Antigravity ERP System. All rights reserved.
+      </footer>
     </div>
+
+    <!-- Mobile Mask -->
+    <div 
+      v-if="layoutState.mobileMenuActive"
+      class="fixed inset-0 bg-black/20 z-30 md:hidden animate-fadein"
+      @click="layoutState.mobileMenuActive = false"
+    />
   </div>
 </template>
+
+<style>
+/* Sakai Transitions */
+.layout-submenu-enter-active,
+.layout-submenu-leave-active {
+  transition: all 0.15s ease-in-out;
+  max-height: 500px;
+  overflow: hidden;
+}
+
+.layout-submenu-enter-from,
+.layout-submenu-leave-to {
+  max-height: 0;
+  opacity: 0;
+}
+
+/* Custom Scrollbar for Sidebar */
+.layout-sidebar::-webkit-scrollbar {
+  width: 6px;
+}
+.layout-sidebar::-webkit-scrollbar-thumb {
+  background: var(--p-surface-200);
+  border-radius: 10px;
+}
+</style>
