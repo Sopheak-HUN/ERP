@@ -1,219 +1,133 @@
 <script setup lang="ts">
 import { ref } from 'vue'
 
-useHead({ title: 'Users | Identity & Access' })
+useHead({ title: 'User Management | Identity & Access' })
 
-// Mock data for UI design
+// Mock data
 const users = ref([
-  {
-    id: 1,
-    name: 'Sopheak Admin',
-    email: 'sopheak@example.com',
-    role: 'Super Admin',
-    status: 'Active',
-    twoFactor: true,
-    joined: '2023-01-15',
-    lastActive: '2 mins ago'
-  },
-  {
-    id: 2,
-    name: 'John Doe',
-    email: 'john.doe@example.com',
-    role: 'HR Manager',
-    status: 'Active',
-    twoFactor: false,
-    joined: '2023-03-22',
-    lastActive: '5 hours ago'
-  },
-  {
-    id: 3,
-    name: 'Alice Smith',
-    email: 'alice.smith@example.com',
-    role: 'Sales Representative',
-    status: 'Inactive',
-    twoFactor: false,
-    joined: '2023-05-10',
-    lastActive: '3 days ago'
-  },
-  {
-    id: 4,
-    name: 'Michael Brown',
-    email: 'michael.brown@example.com',
-    role: 'Finance Admin',
-    status: 'Active',
-    twoFactor: true,
-    joined: '2023-06-05',
-    lastActive: 'Just now'
-  }
+  { id: 1, name: 'Sopheak Admin', email: 'sopheak@example.com', role: 'Super Admin', joined: '2023-01-15', status: 'Active' },
+  { id: 2, name: 'John Doe', email: 'john.doe@example.com', role: 'HR Manager', joined: '2023-03-22', status: 'Active' },
+  { id: 3, name: 'Alice Smith', email: 'alice.smith@example.com', role: 'Sales Representative', joined: '2023-05-10', status: 'Inactive' },
+  { id: 4, name: 'Michael Brown', email: 'michael.brown@example.com', role: 'Finance Admin', joined: '2023-06-05', status: 'Active' },
 ])
 
 const filters = ref({
   global: { value: null, matchMode: 'contains' }
 })
-
-const selectedUsers = ref([])
-
-const getStatusSeverity = (status: string) => {
-  switch (status.toLowerCase()) {
-    case 'active': return 'success'
-    case 'inactive': return 'danger'
-    case 'pending': return 'warn'
-    default: return 'info'
-  }
-}
-
-
 </script>
 
 <template>
-  <div class="max-w-7xl mx-auto py-8 px-4 sm:px-6 lg:px-8">
-    <!-- Header Section -->
-    <div class="mb-10 flex flex-col md:flex-row md:items-end justify-between gap-6">
+  <div class="bg-card border border-surface-border rounded-lg shadow-sm overflow-hidden min-h-full flex flex-col">
+    <!-- Action Header -->
+    <div class="px-6 py-5 border-b border-surface-100 flex items-center justify-between bg-surface-50/50">
       <div>
-        <div class="flex items-center gap-2 text-primary-600 dark:text-primary-400 font-semibold text-sm mb-2 uppercase tracking-widest">
-          <i class="pi pi-shield text-xs"></i>
-          Identity & Access
-        </div>
-        <h1 class="text-4xl font-extrabold text-gray-900 dark:text-white tracking-tight">
-          User Management
-        </h1>
-        <p class="mt-2 text-lg text-gray-500 dark:text-gray-400 max-w-2xl">
-          Control access, manage permissions, and track user activity across your organization.
-        </p>
+        <h1 class="text-xl font-extrabold text-surface-900 tracking-tight leading-none mb-1.5">User Management</h1>
+        <p class="text-[12px] text-surface-500 font-medium">Manage your team members and their account permissions.</p>
       </div>
-      <div class="flex items-center gap-3">
-        <Button 
-          icon="pi pi-user-plus" 
-          label="Add New User" 
-          severity="primary" 
-          class="rounded-2xl px-6 py-3 font-bold shadow-lg shadow-primary-500/25 hover:shadow-primary-500/40 transform hover:-translate-y-0.5 transition-all duration-200" 
-        />
+      <div class="flex items-center gap-2">
+        <Button icon="pi pi-refresh" outlined severity="secondary" size="small" class="h-8 w-8 !p-0" />
+        <Button icon="pi pi-plus" label="Add User" size="small" class="h-8 px-4 font-bold" />
       </div>
     </div>
 
+    <!-- Integrated Toolbar -->
+    <div class="px-6 py-3 border-b border-surface-50 flex items-center justify-between bg-surface-50/30">
+      <div class="flex items-center gap-3">
+        <div class="relative group">
+          <i class="pi pi-search absolute left-3 top-1/2 -translate-y-1/2 text-surface-400 text-[10px] group-focus-within:text-primary transition-colors" />
+          <InputText v-model="filters['global'].value" placeholder="Quick Search..." class="pl-8 h-8 text-[12px] w-56 bg-white dark:bg-surface-950" />
+        </div>
+        <Button icon="pi pi-filter" label="Filters" outlined severity="secondary" class="h-8 px-3 text-[11px] font-bold" />
+      </div>
+      <div class="flex items-center gap-2">
+        <Button icon="pi pi-download" label="Export Data" text severity="secondary" class="h-8 px-3 text-[11px] font-bold" />
+      </div>
+    </div>
 
-
-    <!-- Main Content Table -->
-    <div class="bg-white dark:bg-gray-900 border border-gray-100 dark:border-gray-800 rounded-[2rem] shadow-xl shadow-gray-200/50 dark:shadow-none overflow-hidden">
+    <!-- Professional Data Table -->
+    <div class="flex-1">
       <DataTable 
         :value="users" 
-        v-model:selection="selectedUsers" 
-        v-model:filters="filters" 
-        dataKey="id" 
-        paginator 
-        :rows="10" 
-        :rowsPerPageOptions="[5, 10, 20, 50]" 
-        responsiveLayout="scroll"
+        class="p-datatable-sm"
+        striped-rows
         :pt="{
-          header: 'p-0 border-none bg-transparent',
-          thead: 'bg-gray-50/50 dark:bg-gray-800/40',
+          thead: 'bg-transparent',
           column: {
-            headerCell: 'text-gray-400 dark:text-gray-500 font-bold text-[11px] uppercase tracking-[0.1em] py-5 border-b border-gray-100 dark:border-gray-800',
-            bodyCell: 'py-5 border-b border-gray-50 dark:border-gray-800/50 px-6'
+            headerCell: 'text-surface-500 font-bold text-[10px] py-4 bg-transparent px-6 uppercase tracking-[0.1em] border-b border-primary-100 dark:border-primary-900',
+            bodyCell: 'py-2.5 border-b border-surface-50 px-6 text-[13px] text-surface-700'
           }
         }"
       >
-        <template #header>
-          <CommonDataTableToolbar
-            placeholder="Search by name, email or role..."
-            @search="(val) => filters['global'].value = val"
-            @export="(type) => console.log('Exporting as', type)"
-          >
-            <template #filters>
-              <div class="flex flex-col gap-2">
-                <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">Security Role</label>
-                <Dropdown placeholder="All Roles" class="w-full rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900" />
-              </div>
-              <div class="flex flex-col gap-2">
-                <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">Account Status</label>
-                <Dropdown placeholder="All Status" class="w-full rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900" />
-              </div>
-              <div class="flex flex-col gap-2">
-                <label class="text-[10px] font-bold text-gray-400 uppercase tracking-widest px-1">2FA Verification</label>
-                <Dropdown placeholder="Any" class="w-full rounded-xl border-gray-200 dark:border-gray-700 bg-white dark:bg-gray-900" />
-              </div>
-            </template>
-          </CommonDataTableToolbar>
-        </template>
-        
-        <template #empty>
-          <div class="flex flex-col items-center justify-center p-8 text-gray-500">
-            <i class="pi pi-users text-4xl mb-4 text-gray-400"></i>
-            <p>No users found.</p>
-          </div>
-        </template>
-
-        <Column selectionMode="multiple" headerStyle="width: 3rem"></Column>
-        
         <Column field="name" header="User Member" sortable>
           <template #body="slotProps">
-            <div class="flex items-center gap-4">
-              <div class="relative">
-                <Avatar 
-                  :label="slotProps.data.name.charAt(0)" 
-                  class="bg-gradient-to-br from-gray-100 to-gray-200 dark:from-gray-800 dark:to-gray-700 text-gray-700 dark:text-gray-300 font-bold shadow-inner" 
-                  shape="circle" 
-                  size="large" 
-                />
-                <div class="absolute -bottom-1 -right-1 w-4 h-4 rounded-full border-2 border-white dark:border-gray-900 bg-green-500"></div>
-              </div>
-              <div>
-                <div class="font-bold text-gray-900 dark:text-white text-base">{{ slotProps.data.name }}</div>
-                <div class="text-sm text-gray-500 dark:text-gray-400 flex items-center gap-2">
-                  {{ slotProps.data.email }}
-                  <span class="w-1 h-1 rounded-full bg-gray-300 dark:bg-gray-600"></span>
-                  {{ slotProps.data.lastActive }}
-                </div>
-              </div>
+            <div class="flex items-center gap-3">
+              <Avatar :label="slotProps.data.name.charAt(0)" shape="circle" class="bg-primary-100 text-primary-700 dark:bg-primary-900/30 dark:text-primary-400 font-bold text-[10px] w-6 h-6 border border-primary-200 dark:border-primary-800" />
+              <span class="font-bold text-surface-900 tracking-tight">{{ slotProps.data.name }}</span>
             </div>
           </template>
         </Column>
-
-        <Column field="role" header="Security Role" sortable>
+        
+        <Column field="email" header="Email Address"></Column>
+        
+        <Column field="role" header="Security Role">
           <template #body="slotProps">
-            <span class="inline-flex items-center px-3 py-1 rounded-lg text-xs font-bold bg-blue-50 dark:bg-blue-500/10 text-blue-600 dark:text-blue-400 border border-blue-100 dark:border-blue-500/20">
+            <span class="px-2 py-0.5 rounded text-[10px] font-bold bg-surface-100 text-surface-600 border border-surface-200 uppercase tracking-wider">
               {{ slotProps.data.role }}
             </span>
           </template>
         </Column>
-
+        
         <Column field="status" header="Account Status" sortable>
           <template #body="slotProps">
-            <div class="flex items-center gap-2">
-              <div :class="['w-2 h-2 rounded-full', slotProps.data.status === 'Active' ? 'bg-green-500 animate-pulse' : 'bg-red-500']"></div>
-              <span :class="['text-sm font-bold uppercase tracking-wider', slotProps.data.status === 'Active' ? 'text-green-600 dark:text-green-400' : 'text-red-600 dark:text-red-400']">
+            <div class="flex items-center gap-1.5">
+              <span :class="['w-1.5 h-1.5 rounded-full', slotProps.data.status === 'Active' ? 'bg-green-500' : 'bg-red-500']"></span>
+              <span :class="['text-[11px] font-bold uppercase tracking-wide', slotProps.data.status === 'Active' ? 'text-green-600' : 'text-red-600']">
                 {{ slotProps.data.status }}
               </span>
             </div>
           </template>
         </Column>
-
-        <Column field="twoFactor" header="2FA Security" sortable>
-          <template #body="slotProps">
-            <div class="flex items-center gap-2">
-              <i :class="['pi', slotProps.data.twoFactor ? 'pi-shield text-green-500' : 'pi-shield text-gray-300 dark:text-gray-600', 'text-lg']"></i>
-              <span :class="['text-xs font-bold uppercase', slotProps.data.twoFactor ? 'text-green-600' : 'text-gray-400']">
-                {{ slotProps.data.twoFactor ? 'Verified' : 'Unprotected' }}
-              </span>
-            </div>
-          </template>
-        </Column>
-
-        <Column field="joined" header="Joined Date" sortable>
-          <template #body="slotProps">
-            <div class="text-sm font-medium text-gray-700 dark:text-gray-300">{{ slotProps.data.joined }}</div>
-          </template>
-        </Column>
-
-        <Column header="Actions" :exportable="false" style="min-width:8rem">
-          <template #body="slotProps">
-            <div class="flex items-center gap-2">
-              <Button icon="pi pi-pencil" rounded text severity="secondary" v-tooltip="'Edit User'" class="w-10 h-10 rounded-xl hover:bg-gray-100 dark:hover:bg-gray-800 transition-colors" />
-              <Button icon="pi pi-trash" rounded text severity="danger" v-tooltip="'Delete User'" class="w-10 h-10 rounded-xl hover:bg-red-50 dark:hover:bg-red-500/10 transition-colors" />
+        
+        <Column field="joined" header="Joined Date"></Column>
+        
+        <Column header="Actions" class="text-right" style="width: 100px">
+          <template #body>
+            <div class="flex justify-end gap-1">
+              <Button icon="pi pi-pencil" text rounded severity="secondary" size="small" class="h-8 w-8 text-surface-400 hover:text-primary" />
+              <Button icon="pi pi-trash" text rounded severity="danger" size="small" class="h-8 w-8 text-surface-400" />
             </div>
           </template>
         </Column>
       </DataTable>
     </div>
+
+    <!-- Action Footer -->
+    <div class="px-6 py-4 border-t border-surface-100 bg-surface-50/30 flex items-center justify-between">
+      <span class="text-[10px] text-surface-400 font-bold uppercase tracking-[0.1em]">Showing 4 of 24 Users</span>
+      <div class="flex items-center gap-1">
+        <Button icon="pi pi-chevron-left" text size="small" disabled class="h-8 w-8 !p-0" />
+        <Button label="1" size="small" class="h-8 w-8 !p-0 font-bold" />
+        <Button label="2" text size="small" class="h-8 w-8 !p-0 text-surface-400 font-bold hover:text-primary" />
+        <Button icon="pi pi-chevron-right" text size="small" class="h-8 w-8 !p-0" />
+      </div>
+    </div>
   </div>
 </template>
+
+<style scoped>
+/* Mapping Tailwind-like semantic classes to PrimeVue tokens */
+.bg-card { background-color: var(--p-content-background); }
+.border-surface-border { border-color: var(--p-content-border-color); }
+.text-primary { color: var(--p-primary-color); }
+.bg-primary-100 { background-color: var(--p-primary-100); }
+.text-primary-700 { color: var(--p-primary-700); }
+.bg-surface-50 { background-color: var(--p-surface-50); }
+.bg-surface-100 { background-color: var(--p-surface-100); }
+.border-surface-100 { border-color: var(--p-surface-100); }
+.border-surface-200 { border-color: var(--p-surface-200); }
+.text-surface-400 { color: var(--p-surface-400); }
+.text-surface-500 { color: var(--p-surface-500); }
+.text-surface-600 { color: var(--p-surface-600); }
+.text-surface-700 { color: var(--p-surface-700); }
+.text-surface-900 { color: var(--p-surface-900); }
+</style>
