@@ -13,7 +13,7 @@ help:
 	@echo "  make restart         Restart all containers"
 	@echo "  make build           Rebuild images"
 	@echo "  make logs            Tail logs from all services"
-	@echo "  make ps              List running containers"
+	@echo "  make ps              List running containemakers"
 	@echo ""
 	@echo "Backend (Laravel):"
 	@echo "  make be-install      composer install"

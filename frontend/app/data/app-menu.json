@@ -1,0 +1,212 @@
+[
+  {
+    "title": "Dashboard",
+    "items": [
+      {
+        "label": "Overview",
+        "icon": "pi pi-home",
+        "to": "/"
+      },
+      {
+        "label": "Analytics",
+        "icon": "pi pi-chart-bar",
+        "to": "/analytics"
+      }
+    ]
+  },
+  {
+    "title": "Organization",
+    "items": [
+      {
+        "label": "Company Profile",
+        "icon": "pi pi-building",
+        "to": "/organization/company"
+      },
+      {
+        "label": "Branches",
+        "icon": "pi pi-sitemap",
+        "to": "/organization/branches"
+      },
+      {
+        "label": "Departments",
+        "icon": "pi pi-briefcase",
+        "to": "/organization/departments"
+      }
+    ]
+  },
+  {
+    "title": "Human Resources",
+    "items": [
+      {
+        "label": "Employees",
+        "icon": "pi pi-users",
+        "to": "/hr/employees"
+      },
+      {
+        "label": "Attendance",
+        "icon": "pi pi-calendar-clock",
+        "to": "/hr/attendance"
+      },
+      {
+        "label": "Leave Requests",
+        "icon": "pi pi-calendar-minus",
+        "to": "/hr/leaves"
+      },
+      {
+        "label": "Payroll",
+        "icon": "pi pi-wallet",
+        "to": "/hr/payroll"
+      }
+    ]
+  },
+  {
+    "title": "CRM",
+    "items": [
+      {
+        "label": "Customers",
+        "icon": "pi pi-id-card",
+        "to": "/crm/customers"
+      },
+      {
+        "label": "Leads",
+        "icon": "pi pi-bullseye",
+        "to": "/crm/leads"
+      },
+      {
+        "label": "Opportunities",
+        "icon": "pi pi-star",
+        "to": "/crm/opportunities"
+      }
+    ]
+  },
+  {
+    "title": "Sales",
+    "items": [
+      {
+        "label": "Quotations",
+        "icon": "pi pi-file-edit",
+        "to": "/sales/quotations"
+      },
+      {
+        "label": "Sales Orders",
+        "icon": "pi pi-shopping-cart",
+        "to": "/sales/orders"
+      },
+      {
+        "label": "Invoices",
+        "icon": "pi pi-receipt",
+        "to": "/sales/invoices"
+      }
+    ]
+  },
+  {
+    "title": "Purchasing",
+    "items": [
+      {
+        "label": "Vendors",
+        "icon": "pi pi-truck",
+        "to": "/purchasing/vendors"
+      },
+      {
+        "label": "Purchase Orders",
+        "icon": "pi pi-file",
+        "to": "/purchasing/orders"
+      },
+      {
+        "label": "Bills",
+        "icon": "pi pi-receipt",
+        "to": "/purchasing/bills"
+      }
+    ]
+  },
+  {
+    "title": "Inventory",
+    "items": [
+      {
+        "label": "Products",
+        "icon": "pi pi-box",
+        "to": "/inventory/products"
+      },
+      {
+        "label": "Warehouses",
+        "icon": "pi pi-building",
+        "to": "/inventory/warehouses"
+      },
+      {
+        "label": "Stock Movements",
+        "icon": "pi pi-arrow-right-arrow-left",
+        "to": "/inventory/movements"
+      }
+    ]
+  },
+  {
+    "title": "Finance",
+    "items": [
+      {
+        "label": "Chart of Accounts",
+        "icon": "pi pi-list",
+        "to": "/finance/accounts"
+      },
+      {
+        "label": "Journal Entries",
+        "icon": "pi pi-book",
+        "to": "/finance/journals"
+      },
+      {
+        "label": "Financial Reports",
+        "icon": "pi pi-chart-pie",
+        "to": "/finance/reports"
+      }
+    ]
+  },
+  {
+    "title": "Projects",
+    "items": [
+      {
+        "label": "All Projects",
+        "icon": "pi pi-folder",
+        "to": "/projects"
+      },
+      {
+        "label": "Tasks",
+        "icon": "pi pi-check-square",
+        "to": "/projects/tasks"
+      },
+      {
+        "label": "Timesheets",
+        "icon": "pi pi-clock",
+        "to": "/projects/timesheets"
+      }
+    ]
+  },
+  {
+    "title": "Identity & Access",
+    "items": [
+      {
+        "label": "Users",
+        "icon": "pi pi-user",
+        "to": "/iam/users"
+      },
+      {
+        "label": "Roles & Permissions",
+        "icon": "pi pi-shield",
+        "to": "/iam/roles"
+      }
+    ]
+  },
+  {
+    "title": "System Settings",
+    "items": [
+      {
+        "label": "General Settings",
+        "icon": "pi pi-cog",
+        "to": "/settings/general"
+      },
+      {
+        "label": "Integrations",
+        "icon": "pi pi-link",
+        "to": "/settings/integrations"
+      }
+    ]
+  }
+]

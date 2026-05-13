@@ -29,6 +29,16 @@ return Application::configure(basePath: dirname(__DIR__))
         $middleware->append(RequestId::class);
 
         $middleware->statefulApi();
+
+        // Spatie permission middleware aliases — usable as
+        //   ->middleware('role:admin')
+        //   ->middleware('permission:roles.view')
+        //   ->middleware('role_or_permission:admin|roles.view')
+        $middleware->alias([
+            'role' => \Spatie\Permission\Middleware\RoleMiddleware::class,
+            'permission' => \Spatie\Permission\Middleware\PermissionMiddleware::class,
+            'role_or_permission' => \Spatie\Permission\Middleware\RoleOrPermissionMiddleware::class,
+        ]);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         // Render all API exceptions through the standard error envelope.

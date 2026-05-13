@@ -17,10 +17,17 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        User::factory()->create([
+        $this->call([
+            PermissionSeeder::class,
+            RoleSeeder::class,
+        ]);
+
+        $uat = User::factory()->create([
             'name' => 'UAT Tester',
             'email' => 'sopheakhun030@gmail.com',
             'password' => bcrypt('uat123456789'),
         ]);
+
+        $uat->assignRole('super-admin');
     }
 }

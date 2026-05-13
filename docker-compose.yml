@@ -75,7 +75,7 @@ services:
     environment:
       POSTGRES_DB: ${DB_DATABASE:-erp}
       POSTGRES_USER: ${DB_USERNAME:-erp}
-      POSTGRES_PASSWORD: ${DB_PASSWORD:-erp_secret_change_me}
+      POSTGRES_PASSWORD: ${DB_PASSWORD:-sopheak@6844}
     volumes:
       - postgres_data:/var/lib/postgresql/data
     healthcheck:

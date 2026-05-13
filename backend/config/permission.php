@@ -2,9 +2,9 @@
 
 declare(strict_types=1);
 
+use App\Modules\Rbac\Models\Permission;
+use App\Modules\Rbac\Models\Role;
 use Spatie\Permission\DefaultTeamResolver;
-use Spatie\Permission\Models\Permission;
-use Spatie\Permission\Models\Role;
 
 return [
 

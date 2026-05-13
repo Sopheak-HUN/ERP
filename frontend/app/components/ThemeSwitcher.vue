@@ -30,7 +30,7 @@ const toggle = (event: Event) => {
   <div class="theme-switcher">
     <button
       type="button"
-      class="trigger-btn group flex items-center justify-center gap-2 h-9 px-3 rounded-full border transition-all duration-300 active:scale-95"
+      class="group flex items-center justify-center gap-2 h-9 px-3 rounded-full border border-surface-200/80 dark:border-surface-800 bg-white/80 dark:bg-surface-900/40 shadow-sm backdrop-blur-sm transition-all duration-300 active:scale-95 hover:border-primary-500/40 hover:bg-white dark:hover:bg-surface-900 hover:shadow-[0_0_15px_-3px_rgba(var(--p-primary-500-rgb),0.15)] hover:-translate-y-0.5"
       @click="toggle"
     >
       <div class="flex items-center gap-2">
@@ -75,16 +75,7 @@ const toggle = (event: Event) => {
 </template>
 
 <style scoped>
-@reference "~/assets/css/main.css";
 
-.trigger-btn {
-  @apply bg-white/80 dark:bg-surface-900/40 border-surface-200/80 dark:border-surface-800 shadow-sm backdrop-blur-sm transition-all duration-300;
-}
-
-.trigger-btn:hover {
-  @apply border-primary-500/40 bg-white dark:bg-surface-900 shadow-[0_0_15px_-3px_rgba(var(--p-primary-500-rgb),0.15)];
-  transform: translateY(-1px);
-}
 
 :deep(.p-menu) {
   min-width: 170px;

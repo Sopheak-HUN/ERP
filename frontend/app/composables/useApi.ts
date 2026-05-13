@@ -95,7 +95,9 @@ export function createApi(options: {
       const headers = new Headers(options.headers)
       headers.set('Accept', 'application/json')
       if (!headers.has('Content-Type') && options.method && options.method !== 'GET') {
-        headers.set('Content-Type', 'application/json')
+        if (!(options.body instanceof FormData)) {
+          headers.set('Content-Type', 'application/json')
+        }
       }
       headers.set('X-Request-Id', generateRequestId())
 

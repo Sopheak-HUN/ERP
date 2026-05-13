@@ -7,6 +7,9 @@ export interface AuthUser {
   email: string
   email_verified_at: string | null
   has_two_factor: boolean
+  roles?: string[]
+  permissions?: string[]
+  tenant_id?: number | null
   created_at: string
   updated_at: string
 }

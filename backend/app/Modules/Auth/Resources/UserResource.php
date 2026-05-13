@@ -21,6 +21,11 @@ final class UserResource extends JsonResource
     {
         $verified = $this->email_verified_at;
 
+        /** @var \Illuminate\Support\Collection<int, string> $roleNames */
+        $roleNames = $this->resource->getRoleNames();
+        /** @var \Illuminate\Support\Collection<int, string> $permissionNames */
+        $permissionNames = $this->resource->getAllPermissions()->pluck('name');
+
         return [
             'id' => $this->id,
             'name' => $this->name,
@@ -29,6 +34,9 @@ final class UserResource extends JsonResource
                 ? CarbonImmutable::parse($verified)->toIso8601String()
                 : null,
             'has_two_factor' => $this->two_factor_confirmed_at !== null,
+            'roles' => $roleNames->values()->all(),
+            'permissions' => $permissionNames->values()->all(),
+            'tenant_id' => $this->tenant_id,
             'created_at' => $this->created_at?->toIso8601String(),
             'updated_at' => $this->updated_at?->toIso8601String(),
         ];

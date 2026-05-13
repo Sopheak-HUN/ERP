@@ -1,4 +1,6 @@
 <script setup lang="ts">
+import AppMenu from '~/components/layout/AppMenu.vue'
+
 const config = useRuntimeConfig()
 const appName = computed(() => config.public.appName)
 
@@ -14,11 +16,7 @@ const sidebarOpen = ref(true)
       <div class="flex h-14 items-center border-b border-gray-200 px-4 font-semibold dark:border-gray-800">
         {{ appName }}
       </div>
-      <nav class="flex-1 overflow-y-auto p-4 text-sm text-gray-500 dark:text-gray-400">
-        <p class="italic">
-          Menu will populate once auth + RBAC ships.
-        </p>
-      </nav>
+      <AppMenu />
     </aside>
 
     <div class="flex h-full flex-1 flex-col overflow-hidden">
